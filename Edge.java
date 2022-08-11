@@ -5,20 +5,20 @@ import java.util.Objects;
 
 public class Edge implements Comparator<Edge>, Comparable<Edge> {
 
-	private String childName;
+	private Node child;
 	private int distance;
 
-	public Edge(String childName, int distance) {
-		this.childName = childName;
+	public Edge(Node child, int distance) {
+		this.child = child;
 		this.distance = distance;
 	}
 
-	public String getChildName() {
-		return childName;
+	public Node getChild() {
+		return child;
 	}
 
-	public void setChildName(String childName) {
-		this.childName = childName;
+	public void setChild(Node child) {
+		this.child = child;
 	}
 
 	public int getDistance() {
@@ -49,7 +49,7 @@ public class Edge implements Comparator<Edge>, Comparable<Edge> {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(childName, distance);
+		return Objects.hash(child, distance);
 	}
 
 	@Override
@@ -61,12 +61,12 @@ public class Edge implements Comparator<Edge>, Comparable<Edge> {
 		if (getClass() != obj.getClass())
 			return false;
 		Edge other = (Edge) obj;
-		return Objects.equals(childName, other.childName) && distance == other.distance;
+		return Objects.equals(child, other.child) && distance == other.distance;
 	}
 
 	@Override
 	public String toString() {
-		return "Edge [childName=" + childName + ", distance=" + distance + "]";
+		return "Edge [child=" + child + ", distance=" + distance + "]";
 	}
 
 }
