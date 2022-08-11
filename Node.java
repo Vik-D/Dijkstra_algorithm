@@ -1,6 +1,7 @@
 package main;
 
 import java.util.Comparator;
+import java.util.Objects;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -11,8 +12,15 @@ public class Node implements Comparable<Node>, Comparator<Node> {
 	private int distance;
 	private String name;
 	private boolean processed;
-	private String parentName;
+	private Node parent;
 	private SortedSet<Edge> edges = new TreeSet<>(new EdgeDistanceComparator());
+
+	public Node(String name) {
+		this.name = name;
+		this.distance = INFINITY;
+		this.processed = false;
+		this.parent = null;
+	}
 
 	public Node(String name, SortedSet<Edge> edges) {
 		this.name = name;
@@ -63,12 +71,12 @@ public class Node implements Comparable<Node>, Comparator<Node> {
 		this.processed = processed;
 	}
 
-	public String getParentName() {
-		return parentName;
+	public Node getParent() {
+		return parent;
 	}
 
-	public void setParentName(String parentName) {
-		this.parentName = parentName;
+	public void setParent(Node parent) {
+		this.parent = parent;
 	}
 
 	public SortedSet<Edge> getEdges() {
@@ -77,6 +85,30 @@ public class Node implements Comparable<Node>, Comparator<Node> {
 
 	public void setEdges(SortedSet<Edge> edges) {
 		this.edges = edges;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(distance, name, parent, processed);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Node other = (Node) obj;
+		return distance == other.distance && Objects.equals(name, other.name) && Objects.equals(parent, other.parent)
+				&& processed == other.processed;
+	}
+
+	@Override
+	public String toString() {
+		return "Node [distance=" + distance + ", name=" + name + ", processed=" + processed + ", parent=" + parent
+				+ "]";
 	}
 
 }
